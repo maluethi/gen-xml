@@ -154,7 +154,10 @@ class Project():
 
     def write_xml(self, filename):
         with open(filename, "w+") as xmlfile:
-            xmlfile.write(etree.tostring(self.xml_root, pretty_print=True))
+            try:
+                xmlfile.write(etree.tostring(self.xml_root, pretty_print=True))
+            except TypeError:
+                xmlfile.write(etree.tostring(self.xml_root))
 
 
 class Stage(object):
