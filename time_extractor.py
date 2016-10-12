@@ -26,7 +26,7 @@ xml_file = job_name + "-" + str(run_number) + ".xml"
 
 out_dir = "/pnfs/uboone/scratch/users/maluethi/" + job_name + "/" + run_name
 work_dir = "/uboone/app/users/maluethi/" + job_name + "/" + run_name
-log_dir = "/uboone/app/users/maluethi/" + job_name + "/" + run_name + "log/"
+log_dir = "/uboone/data/users/maluethi/" + job_name + "/" + run_name + "log/"
 
 fcl_top_dir = "/uboone/app/users/maluethi/laser/fcl/"
 
@@ -40,8 +40,9 @@ stage1 = de.Stage(job_name,
                   outdir=out_dir,
                   logdir=log_dir,
                   workdir=work_dir,
-                  inputdef=sam_rundef
-                  )
+                  inputdef=sam_rundef,
+                  defname=job_name
+				  )
 
 larsoft_dir ="/uboone/app/users/maluethi/laser/v05_14_01/local.tgz"
 larsoft = de.Larsoft("v05_14_01", "e9:prof", local_larsoft=larsoft_dir)

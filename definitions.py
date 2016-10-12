@@ -266,7 +266,7 @@ class Stage(object):
         self.inputdef = inputdef
         self.initscript = initscript
         self.datatier = datatier
-        self.numjobs = num_jobs
+        self.numjobs = int(num_jobs)
         self.defname = defname
 
 
