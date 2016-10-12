@@ -11,12 +11,11 @@ sam_rundef = "laser_run-" + str(run_number)
 
 try:
     sam = pu.samweb()
-    sam.listFiles()
     sam.createDefinition(defname=sam_rundef,
                          dims="run_number=" + str(run_number) + " and data_tier=raw and file_format=artroot"
                          )
     sam_num_jobs = sam.countFiles(defname=sam_rundef)
-except Exception as e:
+except NameError as e:
     print e
 
 # XML generation
@@ -42,6 +41,8 @@ stage1 = de.Stage(job_name,
 
 larsoft_dir ="/uboone/app/users/maluethi/laser/v05_14_01/local.tgz"
 larsoft = de.Larsoft("v05_14_01", "e9:prof", local_larsoft=larsoft_dir)
+
+print("fuck this")
 
 proj.add_larsoft(larsoft)
 proj.add_stage(stage1)
