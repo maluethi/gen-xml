@@ -24,11 +24,15 @@ run_name = "laser-" + str(run_number) + "/"
 
 xml_file = job_name + "-" + str(run_number) + ".xml"
 
-work_dir = "/pnfs/uboone/scratch/users/maluethi/" + job_name + "/" + run_name
-out_dir = "/uboone/app/users/maluethi/" + job_name + "/" + run_name
+out_dir = "/pnfs/uboone/scratch/users/maluethi/" + job_name + "/" + run_name
+work_dir = "/uboone/app/users/maluethi/" + job_name + "/" + run_name
 log_dir = "/uboone/app/users/maluethi/" + job_name + "/" + run_name + "log/"
 
-proj = de.Project("123")
+fcl_top_dir = "/uboone/app/users/maluethi/laser/fcl/"
+
+proj = de.Project("time-extract",
+				  fcldir=fcl_top_dir
+				  )
 stage1 = de.Stage(job_name,
                   "TimeMapProducer.fcl",
                   num_jobs=sam_num_jobs,

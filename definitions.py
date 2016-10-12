@@ -78,7 +78,8 @@ class Project():
                  filetype="data",
                  runtype="calibration",
                  resource = 'DEDICATED,OPPORTUNISTIC',
-                 ):
+                 fcldir ="None"
+				 ):
 
         self.name = name
         self.group = group
@@ -88,6 +89,7 @@ class Project():
         self.filetype = filetype
         self.runtype = runtype
         self.resource = resource
+        self.fcldir = fcldir
 
         self.stages = []
 
