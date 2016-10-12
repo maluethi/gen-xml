@@ -155,11 +155,12 @@ class Project():
 
 
     def write_xml(self, filename):
+        doctype = "<!DOCTYPE project>"
         with open(filename, "w+") as xmlfile:
             try:
-                xmlfile.write(etree.tostring(self.xml_root, pretty_print=True))
+                xmlfile.write(etree.tostring(self.xml_root, xml_declaration=True, doctype=doctype , pretty_print=True))
             except TypeError:
-                xmlfile.write(etree.tostring(self.xml_root))
+                xmlfile.write(etree.tostring(self.xml_root, xml_declaration=True, doctype=doctype))
 
 
 class Stage(object):
