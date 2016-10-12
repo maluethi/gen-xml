@@ -160,7 +160,7 @@ class Project():
             try:
                 xmlfile.write(etree.tostring(self.xml_root, xml_declaration=True, doctype=doctype , pretty_print=True))
             except TypeError:
-                xmlfile.write(etree.tostring(self.xml_root, xml_declaration=True, doctype=doctype))
+                xmlfile.write(etree.tostring(self.xml_root))#, xml_declaration=True, doctype=doctype))
 
 
 class Stage(object):
