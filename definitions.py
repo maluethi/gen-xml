@@ -277,7 +277,7 @@ class Larsoft(object):
     # <larsoft><local> - Local test release directory or tarball (default none).
     def __init__(self, version, qualifier, local_larsoft=None):
         self.tag = version
-        self.qualifier = qualifier
+        self.qual = qualifier
         self.local= local_larsoft
 
 if __name__ == "__main__":
