@@ -7,7 +7,7 @@ except ImportError as e:
 run_number = 7206
 sam_num_jobs = 0
 # SAM generation / checks
-sam_rundef = "laser_run-" + str(run_number)
+sam_rundef = "laser-" + str(run_number)
 
 try:
     sam = pu.samweb()
