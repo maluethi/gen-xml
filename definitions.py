@@ -23,6 +23,9 @@ except ImportError:
         except ImportError:
           print("Failed to import ElementTree from any known place")
 import platform
+from subprocess import call
+from shutil import move
+
 
 class Project():
     ######################################################################
@@ -156,11 +159,20 @@ class Project():
 
     def write_xml(self, filename):
         doctype = "<!DOCTYPE project>"
+        nicely_formatted = True 
+
         with open(filename, "w+") as xmlfile:
             try:
                 xmlfile.write(etree.tostring(self.xml_root, xml_declaration=True, doctype=doctype , pretty_print=True))
             except TypeError:
                 xmlfile.write(etree.tostring(self.xml_root))#, xml_declaration=True, doctype=doctype))
+                nicely_formatted = False
+        
+        if not nicely_formatted:
+            with open("tmp.xml", "wi+") as file:
+                call("xmllint --format " + filename , stdout=file , shell=True)
+            
+            move("tmp.xml", filename)
 
 
 class Stage(object):
