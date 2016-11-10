@@ -40,7 +40,7 @@ stage1 = de.Stage(job_name,
                   outdir=out_dir,
                   logdir=log_dir,
                   workdir=work_dir,
-                  defname=sam_rundef
+                  inputdef=sam_rundef
                   )
 
 larsoft_dir ="/uboone/app/users/maluethi/laser/v05_14_01/local.tgz"
