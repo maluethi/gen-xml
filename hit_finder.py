@@ -1,14 +1,22 @@
 import definitions as de
+import argparse
 
 try:
     import project_utilities as pu
 except ImportError as e:
     print("root is unavalable")
 
-run_number = 7206
-sam_num_jobs = 0
+parser = argparse.ArgumentParser(description='XML file creator to extract timestamps based on run number')
+parser.add_argument('run_number', type=int, help='uboone run number')
+parser.add_argument('-o', dest='out_dir', default='', type=str, help='output directory')
+args = parser.parse_args()
+
+run_number = args.run_number
+output_dir = args.out_dir
+
 # SAM generation / checks
-sam_rundef = "laser_run-" + str(run_number)
+sam_num_jobs = 0
+sam_rundef = "laser-" + str(run_number)
 
 try:
     sam = pu.samweb()
@@ -43,11 +51,12 @@ stage1 = de.Stage(job_name,
                   outdir=out_dir,
                   logdir=log_dir,
                   workdir=work_dir,
-                  defname=sam_rundef,
+                  inputdef=sam_rundef,
+                  defname=job_name,
                   initscript=init_script_dir + init_script
                   )
 
-larsoft_dir = "/uboone/app/users/maluethi/laser/v05_08_00/locale.tgz"
+larsoft_dir = "/uboone/app/users/maluethi/laser/v05_08_00/locale.tar"
 larsoft = de.Larsoft("v05_08_00", "e9:prof", local_larsoft=larsoft_dir)
 
 print("fuck this")
@@ -55,19 +64,19 @@ print("fuck this")
 proj.add_larsoft(larsoft)
 proj.add_stage(stage1)
 proj.gen_xml()
-proj.write_xml(xml_file)
+proj.write_xml(output_dir + xml_file)
 
 # lets generate the init script:
 
-TimeMap = ["/uboone/app/users/maluethi/laser/timemap/TimeMap/", "TimeMap-" + str(run_number) + ".root"]
-WireMap = ["/uboone/app/users/maluethi/laser/laserdata/","WireIndexMap.root"]
+TimeMap =  ["/uboone/app/users/maluethi/timemap/TimeMap/", "TimeMap-" + str(run_number) + ".root"]
+WireMap = ["/uboone/app/users/maluethi/laser/laserdata/", "WireIndexMap.root"]
 LaserData = ["/uboone/app/users/maluethi/laser/laserdata/", "Run-" + str(run_number) + ".txt"]
 
 to_copy = [TimeMap, WireMap, LaserData]
 
 setup = "setup ifdhc"
 cp_command = "ifdh cp "
-with open(init_script, "wr") as file:
+with open(output_dir + init_script, "wr") as file:
     file.write("#!/bin/bash\n")
     file.write("\n")
     file.write(setup + "\n")
