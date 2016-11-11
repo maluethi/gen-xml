@@ -1,12 +1,20 @@
 import definitions as de
+import argparse
+
 try:
     import project_utilities as pu
 except ImportError as e:
     print("root is unavalable")
 
-run_number = 7206
-sam_num_jobs = 0
+parser = argparse.ArgumentParser(description='XML file creator to extract timestamps based on run number')
+parser.add_argument('run_number', type=int, help='uboone run number')
+args = parser.parse_args()                    
+
+run_number = args.run_number
+
+
 # SAM generation / checks
+sam_num_jobs = 0
 sam_rundef = "laser-" + str(run_number)
 
 try:
@@ -47,9 +55,10 @@ stage1 = de.Stage(job_name,
 larsoft_dir ="/uboone/app/users/maluethi/laser/v05_14_01/local.tgz"
 larsoft = de.Larsoft("v05_14_01", "e9:prof", local_larsoft=larsoft_dir)
 
-print("fuck this")
 
 proj.add_larsoft(larsoft)
 proj.add_stage(stage1)
 proj.gen_xml()
+
+print("job submit file written to: " + str(xml_file) )
 proj.write_xml(xml_file)
